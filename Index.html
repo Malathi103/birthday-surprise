@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday 🎉</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+}
+
+.card {
+    background: rgba(0,0,0,0.4);
+    padding: 30px;
+    border-radius: 20px;
+    z-index: 2;
+}
+
+button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    background: #fff;
+    color: #ff4e7a;
+    cursor: pointer;
+}
+
+#surprise {
+    display: none;
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+/* Cake */
+.cake {
+    display: none;
+    margin: 20px auto;
+    width: 120px;
+    height: 120px;
+    position: relative;
+}
+
+.layer {
+    width: 120px;
+    height: 40px;
+    background: #ffb6c1;
+    border-radius: 10px;
+    position: absolute;
+}
+
+.layer1 { bottom: 0; }
+.layer2 { bottom: 35px; background: #ffc0cb; }
+.layer3 { bottom: 70px; background: #ff69b4; }
+
+.candle {
+    width: 10px;
+    height: 25px;
+    background: white;
+    position: absolute;
+    top: -25px;
+    left: 55px;
+}
+
+.flame {
+    width: 10px;
+    height: 10px;
+    background: yellow;
+    border-radius: 50%;
+    position: absolute;
+    top: -10px;
+    animation: flicker 0.3s infinite alternate;
+}
+
+@keyframes flicker {
+    from { transform: scale(1); }
+    to { transform: scale(1.2); }
+}
+
+/* Cutting effect */
+.cut {
+    animation: cutCake 1s forwards;
+}
+
+@keyframes cutCake {
+    0% { transform: scaleX(1); }
+    100% { transform: scaleX(0.8); }
+}
+
+/* Confetti */
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: -10px;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>🎂 Happy Birthday, E CHANDRASEKHAR! 🎉</h1>
+    <p>Click below for a surprise 👇</p>
+
+    <button onclick="showSurprise()">Celebrate 🎁</button>
+
+    <div id="surprise">
+        🎉 You are amazing! Enjoy your special day! 🎉
+    </div>
+
+    <!-- Cake -->
+    <div class="cake" id="cake">
+        <div class="layer layer1"></div>
+        <div class="layer layer2"></div>
+        <div class="layer layer3"></div>
+        <div class="candle">
+            <div class="flame"></div>
+        </div>
+    </div>
+
+    <button onclick="cutCake()" id="cutBtn" style="display:none;">Cut Cake 🎂</button>
+</div>
+
+<audio id="music" src="https://www2.cs.uic.edu/~i101/SoundFiles/HappyBirthday.mid"></audio>
+
+<script>
+function showSurprise() {
+    document.getElementById("surprise").style.display = "block";
+    document.getElementById("cake").style.display = "block";
+    document.getElementById("cutBtn").style.display = "inline-block";
+    document.getElementById("music").play();
+    launchConfetti();
+}
+
+function cutCake() {
+    document.getElementById("cake").classList.add("cut");
+    launchConfetti();
+}
+
+function launchConfetti() {
+    for (let i = 0; i < 70; i++) {
+        let c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = Math.random() * window.innerWidth + "px";
+        c.style.background = randomColor();
+        c.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        document.body.appendChild(c);
+
+        setTimeout(() => c.remove(), 5000);
+    }
+}
+
+function randomColor() {
+    const colors = ["#ff0","#0ff","#f0f","#0f0","#f00","#00f"];
+    return colors[Math.floor(Math.random()*colors.length)];
+}
+</script>
+
+</body>
+</html>
